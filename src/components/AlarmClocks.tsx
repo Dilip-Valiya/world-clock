@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTimezoneStore } from "../states/timezoneStore";
 import { DateTime } from "luxon";
+import useDocumentTitle from "../lib/useDocumentTitle";
 
 interface Clock {
   timezone: string;
@@ -53,6 +54,8 @@ const AlarmClocks: React.FC = () => {
       setNotificationPermission("granted");
     }
   }, []);
+
+  useDocumentTitle("World Clock UI | Alarm Clock");
 
   return (
     <div className="p-6 bg-white rounded shadow">

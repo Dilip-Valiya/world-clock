@@ -7,7 +7,7 @@ import { WORLD_CLOCK } from "../constant";
 
 function PageNotFound() {
   const navigate = useNavigate();
-  useDocumentTitle(`Kroger UI | Page Not Found`);
+  useDocumentTitle("World Clock UI | Page Not Found");
 
   return (
     <div id={styles["notfound"]}>

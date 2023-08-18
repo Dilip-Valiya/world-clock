@@ -3,6 +3,7 @@ import { DateTime } from "luxon";
 import { Input, Select } from "antd";
 
 import "../styles/TimezoneConverter.css"; // Create this CSS file for custom styling
+import useDocumentTitle from "../lib/useDocumentTitle";
 
 const { Option } = Select;
 
@@ -23,6 +24,11 @@ const TimezoneConverter: React.FC = () => {
   const timeOptions = [
     { value: "America/New_York", label: "America/New_York" },
     { value: "Asia/Calcutta", label: "Asia/Kolkata" },
+    { value: "Asia/Tokyo", label: "Asia/Tokyo" },
+    { value: "Europe/London", label: "Europe/London" },
+    { value: "Australia/Sydney", label: "Australia/Sydney" },
+    { value: "Africa/Johannesburg", label: "Africa/Johannesburg" },
+    { value: "America/Los_Angeles", label: "America/Los_Angeles" },
     // ... Add more timezone options
   ];
 
@@ -31,6 +37,8 @@ const TimezoneConverter: React.FC = () => {
     .toFormat("hh:mm a");
 
   const localTime = DateTime.local().toFormat("hh:mm a");
+
+  useDocumentTitle("World Clock UI | Timezone Converter");
 
   return (
     <div className="p-6 bg-white rounded shadow">

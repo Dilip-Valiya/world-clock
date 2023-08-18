@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTimezoneStore } from "../states/timezoneStore";
+import useDocumentTitle from "../lib/useDocumentTitle";
 
 interface Clock {
   timezone: string;
@@ -21,6 +22,8 @@ const WorldClockDisplay: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [selectedTimezones]);
+
+  useDocumentTitle("World Clock UI | World Clock Display");
 
   return (
     <div className="p-6 bg-white rounded shadow">

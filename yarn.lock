@@ -8524,11 +8524,6 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==
 
-remix@^1.19.3:
-  version "1.19.3"
-  resolved "https://registry.yarnpkg.com/remix/-/remix-1.19.3.tgz#d90400a19829d7c593283b974c9bd261505f105b"
-  integrity sha512-r6zA1NFWgzKof2XZPyKr5C6MINrSEhehcA8+M9vaAGwIAB3FTm4dd37PM8ojPDPhZ2QCVN0ZvsipP+0Vkw3wdQ==
-
 renderkid@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/renderkid/-/renderkid-3.0.0.tgz#5fd823e4d6951d37358ecc9a58b1f06836b6268a"
