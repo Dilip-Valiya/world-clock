@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { ALARM_CLOCK, TIMEZONE_CONVERTER, WORLD_CLOCK } from "../constant";
 
 const Navigation: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,8 +13,8 @@ const Navigation: React.FC = () => {
     <nav className="bg-blue-900">
       <div className="container mx-auto py-4">
         <div className="flex justify-between items-center px-4">
-          <Link to="/world-clock" className="text-white text-xl font-semibold">
-            My World Clock App
+          <Link to={WORLD_CLOCK} className="text-white text-xl font-semibold">
+            World Clock App
           </Link>
           <div className="lg:hidden">
             <button
@@ -59,7 +60,7 @@ const Navigation: React.FC = () => {
           <ul className="hidden lg:flex space-x-6">
             <li>
               <Link
-                to="/world-clock"
+                to={WORLD_CLOCK}
                 className="text-white hover:text-gray-300 transition duration-300"
               >
                 World Clock Display
@@ -67,7 +68,7 @@ const Navigation: React.FC = () => {
             </li>
             <li>
               <Link
-                to="/timezone-converter"
+                to={TIMEZONE_CONVERTER}
                 className="text-white hover:text-gray-300 transition duration-300"
               >
                 Timezone Converter
@@ -75,7 +76,7 @@ const Navigation: React.FC = () => {
             </li>
             <li>
               <Link
-                to="/alarm-clocks"
+                to={ALARM_CLOCK}
                 className="text-white hover:text-gray-300 transition duration-300"
               >
                 Alarm Clocks
@@ -87,19 +88,19 @@ const Navigation: React.FC = () => {
         {isMenuOpen && (
           <div className="lg:hidden mt-4">
             <Link
-              to="/world-clock"
+              to={WORLD_CLOCK}
               className="block text-white hover:text-gray-300 transition duration-300 py-2"
             >
               World Clock Display
             </Link>
             <Link
-              to="/timezone-converter"
+              to={TIMEZONE_CONVERTER}
               className="block text-white hover:text-gray-300 transition duration-300 py-2"
             >
               Timezone Converter
             </Link>
             <Link
-              to="/alarm-clocks"
+              to={ALARM_CLOCK}
               className="block text-white hover:text-gray-300 transition duration-300 py-2"
             >
               Alarm Clocks
