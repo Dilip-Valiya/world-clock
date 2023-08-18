@@ -1,76 +1,78 @@
 import React, { useState } from "react";
-import { useTimezoneStore } from "../states/timezoneStore";
+import { DateTime } from "luxon";
+import { Input, Select } from "antd";
+
+import "../styles/TimezoneConverter.css"; // Create this CSS file for custom styling
+
+const { Option } = Select;
 
 const TimezoneConverter: React.FC = () => {
-  const [inputDatetime, setInputDatetime] = useState("");
-  const [selectedLocalTimezone, setSelectedLocalTimezone] =
-    useState("Asia/Kolkata");
-  const [selectedTargetTimezone, setSelectedTargetTimezone] =
-    useState("America/New_York");
-  const [convertedDatetime, setConvertedDatetime] = useState("");
+  const [fromTime, setFromTime] = useState(DateTime.local().toFormat("HH:mm"));
+  const [fromTimezone, setFromTimezone] = useState(
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
 
-  const { convertDatetime } = useTimezoneStore();
-
-  const handleConvert = () => {
-    const converted = convertDatetime(
-      inputDatetime,
-      selectedLocalTimezone,
-      selectedTargetTimezone
-    );
-    setConvertedDatetime(converted);
+  const handleFromTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFromTime(event.target.value);
   };
+
+  const handleFromTimezoneChange = (value: string) => {
+    setFromTimezone(value);
+  };
+
+  const timeOptions = [
+    { value: "America/New_York", label: "America/New_York" },
+    { value: "Asia/Calcutta", label: "Asia/Kolkata" },
+    // ... Add more timezone options
+  ];
+
+  const convertedTime = DateTime.fromFormat(fromTime, "HH:mm")
+    .setZone(fromTimezone)
+    .toFormat("hh:mm a");
+
+  const localTime = DateTime.local().toFormat("hh:mm a");
 
   return (
     <div className="p-6 bg-white rounded shadow">
       <h2 className="text-xl font-semibold mb-4">Timezone Converter</h2>
-      <label className="block mb-2">
-        Input Datetime:
-        <input
-          type="datetime-local"
-          className="block w-full mt-1 p-1 border rounded"
-          value={inputDatetime}
-          onChange={(e) => setInputDatetime(e.target.value)}
-        />
-      </label>
-      <div className="flex gap-4">
-        <label className="block w-1/2">
-          Local Timezone:
-          <select
-            className="block w-full mt-1 p-1 border rounded"
-            value={selectedLocalTimezone}
-            onChange={(e) => setSelectedLocalTimezone(e.target.value)}
-          >
-            <option value="Asia/Kolkata">India</option>
-            <option value="America/New_York">US</option>
-            <option value="Europe/London">UK</option>
-            {/* Add more timezone options */}
-          </select>
-        </label>
-        <label className="block w-1/2">
-          Target Timezone:
-          <select
-            className="block w-full mt-1 p-1 border rounded"
-            value={selectedTargetTimezone}
-            onChange={(e) => setSelectedTargetTimezone(e.target.value)}
-          >
-            <option value="Asia/Kolkata">India</option>
-            <option value="America/New_York">US</option>
-            <option value="Europe/London">UK</option>
-            {/* Add more timezone options */}
-          </select>
-        </label>
+      <div className="grid gap-4 md:flex md:flex-col md:items-center">
+        <div className="md:flex md:items-center md:justify-between w-full">
+          <div className="flex flex-col md:flex-row md:items-center md:w-2/5">
+            <label className="mr-2">From&nbsp;Time:</label>
+            <Input
+              type="time"
+              value={fromTime}
+              onChange={handleFromTimeChange}
+              className="border rounded px-2 py-1"
+              placeholder="Enter time in HH:mm format"
+            />
+          </div>
+          <div className="flex flex-col md:ml-4 md:flex-row md:items-center md:w-2/5">
+            <label className="mr-2">From&nbsp;Timezone:</label>
+            <Select
+              value={fromTimezone}
+              onChange={handleFromTimezoneChange}
+              className="border rounded"
+            >
+              {timeOptions.map((option) => (
+                <Option key={option.value} value={option.value}>
+                  {option.label}
+                </Option>
+              ))}
+            </Select>
+          </div>
+        </div>
+        <div className="md:flex md:items-center md:justify-around w-full">
+          <div className="text-lg mt-4 md:mt-0">
+            <p>Converted Time:</p>
+            <p className="font-semibold">{convertedTime}</p>
+          </div>
+          <div className="text-lg mt-4 md:mt-0">
+            <p>Local Time:</p>
+            <p className="font-semibold">{localTime}</p>
+          </div>
+        </div>
       </div>
-      <button
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        onClick={handleConvert}
-      >
-        Convert
-      </button>
-      <p className="mt-2">
-        {convertedDatetime !== "" && convertedDatetime !== "Invalid DateTime"
-          ? `Converted Datetime: ${convertedDatetime}`
-          : "No conversion performed yet."}
-      </p>
     </div>
   );
 };

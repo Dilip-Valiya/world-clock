@@ -18,22 +18,29 @@ const AlarmClocks: React.FC = () => {
   };
 
   useEffect(() => {
-    if (notificationPermission === "granted") {
-      alarms.forEach((alarm) => {
+    const intervalId = setInterval(() => {
+      if (notificationPermission === "granted") {
         const currentTime = DateTime.now();
-        const alarmDateTime = DateTime.fromFormat(alarm.alarmTime, "HH:mm", {
-          zone: alarm.timezone,
-        });
-        if (
-          alarmDateTime.hour === currentTime.hour &&
-          alarmDateTime.minute === currentTime.minute
-        ) {
-          new Notification(`Alarm for ${alarm.timezone}`, {
-            body: `It's time for your alarm!`,
+        alarms.forEach((alarm) => {
+          const alarmDateTime = DateTime.fromFormat(alarm.alarmTime, "HH:mm", {
+            zone: alarm.timezone,
           });
-        }
-      });
-    }
+          if (
+            alarmDateTime.hour === currentTime.hour &&
+            alarmDateTime.minute === currentTime.minute &&
+            alarmDateTime.second === currentTime.second
+          ) {
+            new Notification(`Alarm for ${alarm.timezone}`, {
+              body: `It's time for your alarm!`,
+            });
+          }
+        });
+      }
+    }, 1000); // Run every second
+
+    return () => {
+      clearInterval(intervalId); // Clean up the interval when the component unmounts
+    };
   }, [notificationPermission, alarms]);
 
   useEffect(() => {

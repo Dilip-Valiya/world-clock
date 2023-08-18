@@ -16,13 +16,10 @@ const AppRoutes: React.FC = () => {
     <Router>
       <Navigation />
       <Routes>
-        <Route path="/timezone-converter" element={<TimezoneConverter />} />
         <Route path="/world-clock" element={<WorldClockDisplay />} />
+        <Route path="/timezone-converter" element={<TimezoneConverter />} />
         <Route path="/alarm-clocks" element={<AlarmClocks />} />
-        <Route
-          path="/"
-          element={<Navigate to="/timezone-converter" replace />}
-        />
+        <Route path="/" element={<Navigate to="/world-clock" replace />} />
       </Routes>
     </Router>
   );
